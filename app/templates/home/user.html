@@ -1,0 +1,183 @@
+{% extends "home/home.html" %}
+{% block css %}
+<style>
+
+    .user_sq {
+        display: flex;
+        height: 80%;
+        width: 70%;
+        margin: 0 15% 0 15%;
+        background: white;
+    }
+
+    .menu_curlink {
+        text-decoration: none;
+        background-color: white;
+        color: black;
+    }
+
+    .menu {
+
+        padding-right: 70px;
+    }
+
+    .menu_curlink > span {
+        display: flex;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        justify-content: center;
+        text-align: center;
+        width: 200px;
+        font-weight: bold;
+        font-size: larger;
+        background-color: #c4e0e4;
+    }
+
+    #personal_introduce_text_control {
+        margin-bottom: 30px;
+        resize: none;
+
+
+    }
+
+    .personal-info-change {
+        width: 70px;
+        height: 35px;
+        font-weight: bold;
+        margin-right: 30px;
+        color: white;
+        background-color: forestgreen;
+        border-radius: 30px;
+        font-size: large;
+        font-style: oblique;
+    }
+
+    .form-control-personal {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 30px;
+
+    }
+
+    #face_change {
+        opacity: 0;
+        filter: alpha(opacity=0);
+        height: 60px;
+        width: 60px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9;
+    }
+    .user_sq_flash {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        color: red;
+        background: white;
+        font-size: larger;
+        font-weight: bold;
+        margin-left: 15%;
+        width: 70%;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+        {% for msg in get_flashed_messages() %}
+        <p class="user_sq_flash" >{{ msg }}</p>
+        {% endfor %}
+<div class="user_sq">
+    {% include "home/menu.html"%}
+    <div class="personal_sq">
+        <div class="personal_head">
+            <h3>个人中心</h3>
+        </div>
+        <form method="POST" id="form-data-user-change" enctype="multipart/form-data">
+            <div class="col-md-12" id="error_name"></div>
+            <div class="personal_name_show">
+                <h4>昵称</h4>
+                {{ form.name }}
+                <span></span>
+                {% for err in form.name.errors %}
+                <span class="personal_sq_control_text">{{ err }}</span>
+                {% endfor %}
+            </div>
+            <div class="col-md-12" id="error_phone"></div>
+            <div class="personal_phone_show">
+                <h4>电话</h4>
+                {{ form.phone }}
+                <span></span>
+                {% for err in form.phone.errors %}
+                <span class="personal_sq_control_text">{{ err }}</span>
+                {% endfor %}
+            </div>
+            <div class="col-md-12" id="error_email"></div>
+            <div class="personal_email_show">
+                <h4>邮箱</h4>
+                {{ form.email }}
+                <span></span>
+                {% for err in form.email.errors %}
+                <span class="personal_sq_control_text">{{ err }}</span>
+                {% endfor %}
+            </div>
+            <div class="col-md-12" id="error_face"></div>
+            <div class="personal_face_show">
+                <h4>头像</h4>
+                <em style="width: 60px;display: block;position: absolute;">
+
+                    {{ form.face }}
+                    {% if user.face %}
+                    <img src="{{ url_for('static',filename='uploads/users'+user.face) }}"
+                         style="height: 60px; width: 60px;" id="icon2">
+                    {% else %}
+                    <img src="holder.js/100x100" style="height: 60px; width: 60px;" id="icon" alt="100*100">
+                    {% endif %}
+                </em>
+                {% for err in form.face.errors %}
+                <span class="personal_sq_control_text">{{ err }}</span>
+                {% endfor %}
+                <br><br><br><br>
+            </div>
+            <div class="col-md-12" id="error_info"></div>
+            <div class="personal_introduce_show">
+                <h4>个人介绍</h4>
+                <div class="personal_introduce_text">
+                    {{ form.info }}
+                </div>
+            </div>
+            <div class="form-control-personal">
+                {{ form.csrf_token }}
+                {{ form.submit }}
+            </div>
+        </form>
+    </div>
+
+
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    function handleFiles(obj, id) {
+        file = document.getElementById("icon");
+        var files = obj.files;
+        img = new Image();
+        if (window.URL) {
+            //File API
+            img.src = window.URL.createObjectURL(files[0]); //创建一个object URL，并不是你的本地路径
+            img.onload = function (e) {
+                window.URL.revokeObjectURL(this.src); //图片加载后，释放object URL
+            }
+        }
+        file.src = img.src;
+        //上传文件
+        var fd = new FormData(),//实例化一个表单
+            xhr = new XMLHttpRequest();
+        fd.append('headimg', files[0]);//追加图片元素
+        xhr.open('post', 'user.php?act=act_edit_img');//请求方式，请求地址
+        xhr.send(fd);
+    }
+</script>
+{% endblock %}

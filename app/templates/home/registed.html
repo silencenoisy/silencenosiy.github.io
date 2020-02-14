@@ -1,0 +1,68 @@
+{% extends "home/home.html" %}
+
+{% block css %}
+<style>
+    .account_success {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        width: 50%;
+        border-radius: 50px;
+        margin-left: 25%;
+        color: red;
+        font-weight: bold;
+        background: white;
+    }
+
+    .account_num {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        width: 50%;
+        border-radius: 50px;
+        margin-left: 25%;
+        color: red;
+        font-weight: bold;
+        background: white;
+        margin-bottom: 10%;
+    }
+
+    .backhome_pic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        width: 300px;
+        height: 200px;
+    }
+
+    .back_home {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        color: indigo;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: xx-large;
+
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        <h1 class="account_success">注册成功！</h1>
+        <h1 class="account_num">您的账号为：{{ id }}</h1>
+    </div>
+    <div>
+        <a class="back_home" href="{{ url_for('home.index',page=1) }}">返回首页</a>
+        <a href="{{ url_for('home.index',page=1) }}">
+            <img src="{{ url_for('static',filename='base/images/backhome.jpg') }}" alt="home" class="backhome_pic">
+        </a>
+    </div>
+</div>
+
+
+
+{% endblock %}

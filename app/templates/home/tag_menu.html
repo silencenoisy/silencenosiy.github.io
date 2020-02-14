@@ -1,0 +1,38 @@
+<div id="movie_tag">
+
+
+    <table border="1" cellspacing="0">
+        <div class="admin_space">
+            <tr class="admin_movie_link">
+                <td>
+                    <a href="{{ url_for('home.index',page=1) }}?time=1" class="menu_curlink_admin">
+                        <span class="admin_space_text">最新</span>
+                    </a>
+                </td>
+            </tr>
+        </div>
+        <div class="admin_space">
+            <tr class="admin_movie_link">
+                <td>
+                    <a href="{{ url_for('home.index',page=1) }}?time=2" class="menu_curlink_admin">
+                        <span class="admin_space_text">最早</span>
+                    </a>
+                </td>
+            </tr>
+        </div>
+        {% for v in tags %}
+        <div class="admin_space">
+            <tr class="admin_user_link">
+                <td>
+                    <a href="{{ url_for('home.index',page=1) }}?tag_id={{ v.id }}&time={{ p['time'] }}" class="menu_curlink_admin">
+                        <span class="admin_space_text">{{ v.name }}</span>
+                    </a>
+                </td>
+            </tr>
+        </div>
+        {% endfor %}
+
+
+
+    </table>
+</div>

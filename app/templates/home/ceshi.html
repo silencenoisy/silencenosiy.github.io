@@ -1,0 +1,103 @@
+{% extends "home/home.html" %}
+{% block css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.css">
+<style>
+    #dplayer {
+        width: 960px;
+        height: 680px;
+    }
+
+    .user_sq {
+
+        height: 80%;
+        width: 70%;
+        margin: 0 15% 0 15%;
+        background: white;
+    }
+    .play_head{
+        font-weight: bold;
+        font-size: xx-large;
+        color: #ba2bcc;
+        text-align: center;
+    }
+    #play{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    #play_love>a{
+        text-decoration: none;
+        font-size: larger;
+        font-weight: bold;
+        color: orange;
+    }
+    #play_col>a{
+        text-decoration: none;
+        font-size: larger;
+        font-weight: bold;
+        color: orange;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="user_sq">
+
+    <div class="play_head">爱情公寓5-13</div>
+    <div id="play">
+        <div id="dplayer"></div>
+    </div>
+    <div class="play_info">
+        <div id="play_love">
+            <a href="#">点赞</a>
+            <span>50</span>
+        </div>
+        <div id="play_col">
+            <a href="#">收藏</a>
+            <span>60</span>
+        </div>
+    </div>
+    <div id="play_comments">
+        <div class="comments_sq">
+            <table class="table-table-hover">
+                <tbody>
+                <tr>
+                    <th>昵称</th>
+                    <th>评论内容</th>
+                </tr>
+                <tr>
+                    <td>fst</td>
+                    <td>红红火火恍恍惚惚</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">上一页</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">下一页</a></li>
+                <li><a href="#">尾页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.js"></script>
+<script>
+    const dp = new DPlayer({
+        container: document.getElementById('dplayer'),
+        video: {
+            url: "{{ url_for('static',filename='uploads/movies/A情公寓5-13.mp4')}}",
+        },
+    });
+</script>
+{% endblock %}

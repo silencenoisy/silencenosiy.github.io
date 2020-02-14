@@ -1,0 +1,52 @@
+
+<div class="menu">
+    <table border="1" cellspacing="0">
+        <div class="personal_space">
+            <tr class="personal_space_link">
+                <td>
+                    <a href="{{ url_for('home.user') }}" class="menu_curlink">
+                        <span>个人中心</span>
+                    </a>
+                </td>
+            </tr>
+            <tr class="personal_movie_link">
+                <td>
+                    <a href="{{ url_for('home.mymovie', page=1) }}" class="menu_curlink">
+                        <span>视频管理</span>
+                    </a>
+                </td>
+            </tr>
+        </div>
+        <div class="personal_space">
+            <tr class="personal_comments_link">
+                <td>
+                    <a href="{{ url_for('home.comments',page=1) }}" class="menu_curlink">
+                        <span>我的评论</span>
+                    </a>
+                </td>
+
+            </tr>
+        </div>
+        <div class="personal_space">
+            <tr class="personal_moviecol_link">
+                <td>
+                    <a href="{{ url_for('home.moviecol',page=1) }}" class="menu_curlink">
+                        <span>收藏内容</span>
+                    </a>
+                </td>
+
+            </tr>
+        </div>
+        <div class="personal_space">
+            <tr class="personal_pwd_link">
+                <td>
+                    <a href="{{ url_for('home.pwd') }}" class="menu_curlink">
+                        <span>修改密码</span>
+                    </a>
+                </td>
+
+            </tr>
+        </div>
+    </table>
+
+</div>

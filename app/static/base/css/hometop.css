@@ -1,0 +1,9 @@
+body {
+    background: url(../images/home.jpg);
+    background-color: cornflowerblue;
+}
+ul.demo {
+    list-style-type: decimal;
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,137 @@
+{% extends "home/home.html" %}
+{% import "ul/admin_page.html" as pg %}
+{% block css %}
+<style>
+    .user_sq {
+        display: flex;
+        height: 80%;
+        width: 70%;
+        margin: 0 15% 0 15%;
+        background: white;
+    }
+
+    .menu_curlink {
+        text-decoration: none;
+        background-color: white;
+        color: black;
+    }
+
+    .menu {
+
+        padding-right: 70px;
+    }
+
+    .menu_curlink > span {
+        display: flex;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        justify-content: center;
+        text-align: center;
+        width: 200px;
+        font-weight: bold;
+        font-size: larger;
+        background-color: #c4e0e4;
+    }
+
+
+    #user_con_head{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        width: 500px;
+    }
+    .table-table-hover>tbody>tr>th{
+        width: 200px;
+    }
+    .table-table-hover>tbody>tr>td{
+        width: 200px;
+        text-align: center;
+    }
+    .box-footer-clearfix>ul{
+        display: flex;
+        justify-content: right;
+        text-align: right;
+        list-style: none;
+        justify-content: center;
+        text-align: center;
+    }
+    .box-footer-clearfix>ul>li>a{
+        text-decoration: none;
+        color: #ba2bcc;
+    }
+    .user_sq_flash {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        color: red;
+        background: white;
+        font-size: larger;
+        font-weight: bold;
+        margin-left: 15%;
+        width: 70%;
+    }
+    .add_movie{
+        text-align: center;
+        color: orange;
+        font-size: large;
+        font-weight: bold;
+        margin-bottom: 20px;
+
+    }
+    .add_movie_link{
+        text-decoration: none;
+
+
+    }
+    .add_movie_link>span{
+        text-align: center;
+        background: #34ff52;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+        {% for msg in get_flashed_messages() %}
+        <p class="user_sq_flash" >{{ msg }}</p>
+        {% endfor %}
+<div class="user_sq">
+    {% include "home/menu.html" %}
+    <div id="user_con">
+        <div id="user_con_head">
+            <h2 class="user_con_head_text">视频管理</h2>
+        </div>
+        <div class="box-body table-responsive no-padding">
+                            <table class="table-table-hover">
+                                <tbody>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                    <th>标签</th>
+                                    <th>添加时间</th>
+                                    <th>操作事项</th>
+                                </tr>
+                                {% for v in page_data.items %}
+                                <tr>
+                                    <td>{{ v.id }}</td>
+                                    <td>{{ v.title }}</td>
+                                    <td>{{ tag.query.get(v.tag_id).name }}</td>
+                                    <td>{{ v.addtime }}</td>
+                                    <td>
+                                        <a class="label label-danger" href="{{ url_for('home.play',id=v.id,page=1) }}">查看</a>
+                                        <a class="label label-danger" href="{{ url_for('home.movie_del',id=v.id) }}">删除</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer-clearfix">
+                            {{ pg.page(page_data,'home.mymovie') }}
+                        </div>
+
+
+<div class="add_movie">
+    <a href="{{ url_for('home.movie_add') }}" class="add_movie_link"><span>添加电影</span></a>
+</div></div>
+</div>
+{% endblock %}

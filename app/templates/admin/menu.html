@@ -1,0 +1,44 @@
+
+<div class="menu_admin">
+    <table border="1" cellspacing="0">
+        <div class="admin_space">
+            <tr class="admin_movie_link">
+                <td>
+                    <a href="{{ url_for('admin.movie',page=1 )}}" class="menu_curlink_admin">
+                        <span class="admin_space_text">视频管理</span>
+                    </a>
+                </td>
+            </tr>
+        </div>
+        <div class="admin_space">
+            <tr class="admin_user_link">
+                <td>
+                    <a href="{{ url_for('admin.user',page=1) }}" class="menu_curlink_admin">
+                        <span class="admin_space_text">用户管理</span>
+                    </a>
+                </td>
+            </tr>
+        </div>
+        <div class="admin_space">
+            <tr class="admin_comments_link">
+                <td>
+                    <a href="{{ url_for('admin.comments',page=1) }}" class="menu_curlink_admin">
+                        <span class="admin_space_text">评论管理</span>
+                    </a>
+                </td>
+
+            </tr>
+        </div>
+        <div class="admin_space">
+            <tr class="admin_account_link">
+                <td>
+                    <a href="{{ url_for('admin.account') }}" class="menu_curlink_admin">
+                        <span class="admin_space_text">管理员账户</span>
+                    </a>
+                </td>
+
+            </tr>
+        </div>
+    </table>
+
+</div>

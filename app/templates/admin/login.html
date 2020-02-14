@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            background: gray;
+        }
+        .admin_login_blank{
+            display: flex;
+            background: gray;
+            height: 20%;
+        }
+        .admin_head{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            width: 50%;
+            height: 10%;
+            margin-left: 25%;
+            margin-bottom: 10%;
+            background: gray;
+            font-weight: bold;
+        }
+        .login_sq_input{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            width: 50%;
+            height: 200px;
+            margin-left: 25%;
+        }
+        .admin_account{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10%;
+        }
+        .admin_pwd{
+            display: flex;
+            justify-content: center;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 5%;
+            margin-left: 47px;
+        }
+        .admin_account>span{
+            margin-right: 10px;
+        }
+        .admin_pwd>span{
+            margin-right: 10px;
+        }
+
+        .admin_login_btn{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: forestgreen;
+            margin-top: 20px;
+            margin-left: 100px;
+            width: 100px;
+            border-radius: 10px;
+        }
+        .login_sq_flash{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            color: red;
+        }
+        .login_sq_control_text{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin_login_blank"></div>
+    <div class="admin_head">
+        <h1>管理员登录界面</h1>
+    </div>
+
+    <div class="login_sq">
+            {% for msg in get_flashed_messages() %}
+            <p class="login_sq_flash">{{ msg }}</p>
+            {% endfor %}
+        <div class="login_sq_input">
+
+            <form action="" method="POST" id="form-data-admin">
+                <div class="admin_account">
+                    <span>管理员账户</span>
+                    {{ form.account }}
+                    <span></span>
+                    {% for err in form.account.errors %}
+                        <span class="login_sq_control_text">{{ err }}</span>
+                    {% endfor %}
+                </div>
+                <div class="admin_pwd">
+                    <span>密码</span>
+                    {{ form.pwd }}
+                    <span></span>
+                    {% for err in form.pwd.errors %}
+                    <span class="login_sq_control_text">{{ err }}</span>
+                    {% endfor %}
+                </div>
+                {{ form.submit }}
+                {{ form.csrf_token }}
+            </form>
+        </div>
+    </div>
+</body>
+</html>

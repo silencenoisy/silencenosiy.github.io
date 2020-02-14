@@ -1,0 +1,221 @@
+{% extends "home/home.html" %}
+{% block css %}
+<style>
+    body {
+        background:url("../../static/base/images/hmbbhome.jpg") bottom center no-repeat ;
+        background-size: 100% 100%;
+        width: 100%;
+        height: 100%;
+    }
+
+    .regist_head {
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        text-align: center;
+        font-size: large;
+        margin-left: 25%;
+        font-family: 楷体;
+        background-color: #87ff96;
+        border-radius: 30px 30px 0 0;
+    }
+
+    .regist_head > h2 {
+        color: red;
+    }
+
+    .regist_sq {
+        display: table;
+        height: 100px;
+        width: 50%;
+        margin-left: 25%;
+        justify-content: center;
+        text-align: center;
+
+    }
+
+    .regist_form {
+        display: table;
+        background-color: white;
+        width: 100%;
+        height: 250px;
+        border-radius: 0px 0px 30px 30px;
+        /*margin-left: 25%;*/
+    }
+
+    .regist_name {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-right: 20px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .regist_name > span {
+        margin-right: 20px;
+        font-weight: bold;
+    }
+
+    .regist_pwd_create {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-right: 20px;
+        margin-left: 15px;
+        margin-bottom: 10px;
+    }
+
+    .regist_pwd_create > span {
+        margin-right: 20px;
+        font-weight: bold;
+    }
+
+    .regist_repwd_check {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-right: 20px;
+        margin-left: -17px;
+        margin-bottom: 10px;
+    }
+
+    .regist_repwd_check > span {
+        margin-right: 20px;
+        font-weight: bold;
+    }
+
+    .regist_email {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-right: 20px;
+        margin-left: 15px;
+        margin-bottom: 10px;
+    }
+
+    .regist_email > span {
+        margin-right: 20px;
+        font-weight: bold;
+    }
+
+    .regist_phone {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-right: 20px;
+        margin-left: 15px;
+        margin-bottom: 20px;
+    }
+
+    .regist_phone > span {
+        margin-right: 20px;
+        font-weight: bold;
+    }
+
+    .regist_btn {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        color: #34ff52;
+
+    }
+
+    .regist_btn > input {
+        width: 140px;
+        height: 35px;
+        font-weight: bold;
+        margin-right: 30px;
+        border-radius: 30px;
+        color: white;
+        background-color: forestgreen;
+        font-size: large;
+        font-style: oblique;
+    }
+
+    .form-control {
+        display: flex;
+        position: static;
+        height: 30px;
+    }
+
+    .login_sq_control_text {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        color: red;
+        font-size: small;
+        font-weight: bold;
+        background: #cca250;
+        width: 40%;
+        margin-left: 35%;
+        border-radius: 30px;
+        margin-bottom: 5px;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="regist_head">
+    <h2>注册</h2>
+</div>
+<div class="regist_sq">
+    <form method="POST" id="form-data-regist">
+        <div class="regist_form">
+            {% for err in form.name.errors %}
+            <span class="login_sq_control_text">{{ err }}</span>
+            {% endfor %}
+            <div class="regist_name">
+                <br><span>用户名</span>
+                {{ form.name }}
+                <span></span>
+
+            </div>
+            {% for err in form.pwd.errors %}
+            <span class="login_sq_control_text">{{ err }}</span>
+            {% endfor %}
+            <div class="regist_pwd">
+                <div class="regist_pwd_create">
+                    <span>密码</span>
+                    {{ form.pwd }}
+                    <span></span>
+
+                </div>
+                {% for err in form.repwd.errors %}
+                <span class="login_sq_control_text">{{ err }}</span>
+                {% endfor %}
+                <div class="regist_repwd_check">
+                    <span>确认密码</span>
+                    {{ form.repwd }}
+                    <span></span>
+
+                </div>
+            </div>
+            {% for err in form.email.errors %}
+            <span class="login_sq_control_text">{{ err }}</span>
+            {% endfor %}
+            <div class="regist_email">
+                <span>邮箱</span>
+                {{ form.email }}
+                <span></span>
+
+            </div>
+            {% for err in form.phone.errors %}
+            <span class="login_sq_control_text">{{ err }}</span>
+            {% endfor %}
+            <div class="regist_phone">
+                <span>手机</span>
+                {{ form.phone }}
+                <span></span>
+
+            </div>
+            <div class="regist_btn">
+                {{ form.submit }}
+                {{ form.csrf_token }}
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}

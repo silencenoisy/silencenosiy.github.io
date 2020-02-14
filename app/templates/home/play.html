@@ -1,0 +1,307 @@
+{% extends "home/home.html" %}
+{% import "ul/comment_page.html" as pg %}
+{% block css %}
+
+<link rel="stylesheet" href="{{ url_for('static',filename='dplayer/dist/Dplayer.min.css') }}" >
+<script src="{{ url_for('static',filename='dplayer/dist/DPlayer.min.js') }}"></script>
+
+<style>
+    .box-footer-clearfix > ul {
+        display: flex;
+        justify-content: right;
+        text-align: right;
+        list-style: none;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .box-footer-clearfix > ul > li > a {
+        text-decoration: none;
+        color: indigo;
+    }
+
+    .form-control-personal {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 30px;
+
+    }
+
+    #dplayer {
+
+        size: auto;
+    }
+
+    .user_sq {
+
+        height: 80%;
+        width: 70%;
+        margin: 0 15% 0 15%;
+        background: white;
+    }
+
+    .play_head {
+        font-weight: bold;
+        font-size: xx-large;
+        color: #ba2bcc;
+        text-align: center;
+    }
+
+    #play {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #play_love > a {
+        text-decoration: none;
+        font-size: larger;
+        font-weight: bold;
+        color: orange;
+    }
+
+    #play_col > a {
+        text-decoration: none;
+        font-size: larger;
+        font-weight: bold;
+        color: orange;
+    }
+
+    .user_sq_flash {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        color: red;
+        background: white;
+        font-size: larger;
+        font-weight: bold;
+        margin-left: 15%;
+        width: 70%;
+    }
+
+    .personal_introduce_text {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .personal-info-change {
+        width: 70px;
+        height: 35px;
+        font-weight: bold;
+        margin-right: 30px;
+        color: white;
+        background-color: forestgreen;
+        border-radius: 30px;
+        font-size: large;
+        font-style: oblique;
+    }
+
+    .personal_introduce_show > span {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        color: orange;
+    }
+
+    #comment_get {
+        background: #c9cc4d;
+    }
+
+    #play_comments {
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        padding-left: 40px;
+        background: lightblue;
+
+    }
+
+    .comment_name_show {
+        width: 100px;
+        text-align: center;
+        color: red;
+    }
+
+    #comment_name_show_head {
+        color: indigo;
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    #comment_content_show_head {
+        color: indigo;
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    #play_num_text {
+        font-size: large;
+        color: red;
+    }
+
+    #play_num_data {
+        font-size: medium;
+        color: #ba2bcc;
+    }
+
+    .play_con_btn {
+        display:;
+    }
+    #col_msg{
+        font-size: 10px;
+        font-weight: bold;
+    }
+    #like_msg{
+        font-size: 10px;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+{% for msg in get_flashed_messages() %}
+<p class="user_sq_flash">{{ msg }}</p>
+{% endfor %}
+<div class="user_sq">
+
+    <div class="play_head">{{ movie.title }}</div>
+    <div class="paly_num"><span id="play_num_text">播放量：</span><span id="play_num_data">{{ movie.playnum }}</span></div>
+    <div id="play">
+        <div id="dplayer"></div>
+    </div>
+    <div class="play_info">
+        <div id="play_love">
+            <a  id="play_like_btn" class="play_con_btn">点赞</a>
+            <span>{{ like }}</span>
+            <div><span id="like_msg"></span></div>
+        </div>
+        <div id="play_col">
+            <a id="play_col_btn" class="play_con_btn">收藏</a>
+            <span>{{ col }}</span>
+            <div><span id="col_msg"></span></div>
+        </div>
+    </div>
+    <div id="comments_get">
+        {% if "id" not in session %}
+        <div id="comment_warn">
+            <span class="comment_login_warn">请</span>
+            <a href="{{ url_for('home.login') }}" id="comment_login">登录</a>
+            <span class="comment_login_warn">再评论</span>
+        </div>
+        {% endif %}
+        {% if "id" in session %}
+        <div id="comment_get">
+            <form method="POST" id="form-comments-get" enctype="multipart/form-data">
+                <div class="personal_introduce_show">
+                    <span>评论</span>
+                    <div class="personal_introduce_text">
+                        {{ form.comment }}
+                    </div>
+                </div>
+                <div class="form-control-personal">
+                    {{ form.csrf_token }}
+                    {{ form.submit }}
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <div id="play_comments">
+        <div class="comments_sq">
+            <div class="box-body table-responsive no-padding">
+                <table class="table-table-hover">
+                    <tbody>
+                    <tr>
+                        <th class="comment_name_show" id="comment_name_show_head">昵称</th>
+                        <th class="comment_content_show" id="comment_content_show_head">内容</th>
+                    </tr>
+                    {% for v in page_data.items %}
+                    <tr>
+                        <td class="comment_name_show">{{ users.query.get(v.user_id).name }}</td>
+                        <td class="comment_content_show">{{ v.content }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+
+            </tbody>
+            </table>
+        </div>
+        <div class="box-footer-clearfix">
+            {{ pg.page(page_data,'home.play',movie.id) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.js"></script>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+
+        var dp1 = new DPlayer({
+            container: document.getElementById('dplayer'),
+            video: {
+                url: "{{ url_for('static', filename='uploads/'+'movie'+movie.url) }}"
+            },
+            danmaku: {
+                id: '{{ movie.id }}',
+                api: "/tm/"
+            }
+        });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#play_col_btn").click(function () {
+            var mid = {{ movie.id }};
+            var uid = {{ session['user_id'] }};
+            $.ajax({
+                url:"{{ url_for('home.moviecol_add') }}",
+                type:"GET",
+                dataType:"json",
+                data:"mid=" + mid + "&uid=" + uid,
+                success:function (res) {
+                    if(res.ok==1){
+                        $("#col_msg").empty();
+                        $("#col_msg").append("收藏成功！");
+                    }else{
+                        $("#col_msg").empty();
+                        $("#col_msg").append("已收藏！");
+                    }
+                }
+            })
+        })
+    })
+    $(document).ready(function () {
+        $("#play_like_btn").click(function () {
+            var mid = {{ movie.id }};
+            var uid = {{ session['user_id'] }};
+            $.ajax({
+                url:"{{ url_for('home.like_add') }}",
+                type:"GET",
+                dataType:"json",
+                data:"mid=" + mid + "&uid=" + uid,
+                success:function (res) {
+                    if(res.ok==1){
+                        $("#like_msg").empty();
+                        $("#like_msg").append("点赞成功！");
+                    }else{
+                        $("#like_msg").empty();
+                        $("#like_msg").append("已点赞！");
+                    }
+                }
+            })
+        })
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends "admin/home.html" %}
+{% import "ul/admin_page.html" as pg %}
+{% block css %}
+<style>
+    .admin_sq{
+        display: flex;
+        background: white;
+        width: 80%;
+        margin-left: 10%;
+    }
+
+     .menu_curlink_admin{
+        display: flex;
+        text-decoration: none;
+        color: black;
+        background: white;
+
+    }
+    .admin_space_text{
+        font-weight: bold;
+        font-size: larger;
+    }
+
+
+    #user_con_head{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        width: 500px;
+    }
+    .table-table-hover>tbody>tr>th{
+        width: 200px;
+    }
+    .table-table-hover>tbody>tr>td{
+        width: 200px;
+        text-align: center;
+    }
+    .box-footer-clearfix>ul{
+        display: flex;
+        justify-content: right;
+        text-align: right;
+        list-style: none;
+        justify-content: center;
+        text-align: center;
+    }
+    .box-footer-clearfix>ul>li>a{
+        text-decoration: none;
+        color: #ba2bcc;
+    }
+    .user_sq_flash {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        color: red;
+        background: white;
+        font-size: larger;
+        font-weight: bold;
+        margin-left: 15%;
+        width: 70%;
+    }
+    .add_movie{
+        text-align: center;
+        color: orange;
+        font-size: large;
+        font-weight: bold;
+        margin-bottom: 20px;
+
+    }
+    .add_movie_link{
+        text-decoration: none;
+
+
+    }
+    .add_movie_link>span{
+        text-align: center;
+        background: #34ff52;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+        {% for msg in get_flashed_messages() %}
+        <p class="user_sq_flash" >{{ msg }}</p>
+        {% endfor %}
+<div class="admin_sq">
+    {% include "admin/menu.html" %}
+    <div id="user_con">
+        <div id="user_con_head">
+            <h2 class="user_con_head_text">评论管理</h2>
+        </div>
+        <div class="box-body table-responsive no-padding">
+                            <table class="table-table-hover">
+                                <tbody>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>视频名称</th>
+                                    <th>评论用户</th>
+                                    <th>添加时间</th>
+                                    <th>评论</th>
+                                    <th>操作事项</th>
+                                </tr>
+                                {% for v in page_data.items %}
+                                <tr>
+                                    <td>{{ v.id }}</td>
+                                    <td>{{ user.query.get(v.user_id).name }}</td>
+                                    <td>{{ movie.query.get(v.movie_id).title }}</td>
+                                    <td>{{ v.addtime }}</td>
+                                    <td>{{ v.content }}</td>
+                                    <td>
+                                        <a class="label label-danger" href="{{ url_for('home.play',id=v.movie_id,page=1) }}">查看视频</a>
+                                        <a class="label label-danger" href="{{ url_for('admin.comments_del',id=v.id) }}">删除</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer-clearfix">
+                            {{ pg.page(page_data,'admin.comments') }}
+                        </div>
+
+    </div>
+</div>
+{% endblock %}

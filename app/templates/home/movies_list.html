@@ -1,0 +1,77 @@
+{% extends "home/home.html" %}
+{% import "ul/admin_page.html" as pg %}
+{% block css %}
+<style>
+    .box-footer-clearfix>ul{
+        display: flex;
+        justify-content: right;
+        text-align: right;
+        list-style: none;
+        justify-content: center;
+        text-align: center;
+    }
+    .box-footer-clearfix>ul>li>a{
+        text-decoration: none;
+        color: #ba2bcc;
+    }
+    .menu_curlink_admin{
+        display: flex;
+        text-decoration: none;
+        color: black;
+
+    }
+    #index_sq{
+        display: flex;
+        height: 80%;
+        width: 70%;
+        margin: 0 15% 0 15%;
+        background: white;
+    }
+
+    #movie_tag span{
+        display: flex;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        justify-content: center;
+        text-align: center;
+        width: 200px;
+        font-weight: bold;
+        font-size: larger;
+        background-color: #c4e0e4;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="index_sq">
+
+
+{% include "home/tag_menu.html" %}
+    <div>
+
+    <table >
+
+
+    {% for v in page_data.items %}
+        <tr class="">
+        <div class="movie_list_sq">
+            <div class="movie_show_pic">
+                <a href="{{ url_for('home.play',id=v.id,page=1) }}">
+                    <img src="{{ url_for('static',filename='uploads/'+'movie'+v.logo) }}" style="width: 100px; height: 100px;" alt="100X100">
+                </a>
+            </div>
+            <div class="movie_show_top">
+                <a href="{{ url_for('home.play',id=v.id,page=1) }}"><span style="font-weight: bold;font-size: large">{{ v.title }}</span></a>
+            </div>
+        </div><br>
+        </tr>
+    {% endfor %}
+
+    </table>
+    </div>
+    <div class="box-footer-clearfix">
+        {{ pg.page(page_data,'home.movies_list') }}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "admin/home.html" %}
+{% block css %}
+<style>
+    .menu_curlink_admin{
+        display: flex;
+        text-decoration: none;
+        color: black;
+        background: white;
+
+    }
+    .admin_space_text{
+        font-weight: bold;
+        font-size: larger;
+    }
+    .admin_sq{
+        display: flex;
+        background: white;
+        width: 80%;
+        margin-left: 10%;
+    }
+    #movie_add_head{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        width: 500px;
+    }
+    .blank{
+        width: 300px;
+    }
+    .user_sq_flash {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        color: red;
+        background: white;
+        font-size: larger;
+        font-weight: bold;
+        margin-left: 15%;
+        width: 70%;
+    }
+    .form-control-personal {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 30px;
+
+    }
+    .movie_submit {
+        width: 70px;
+        height: 35px;
+        font-weight: bold;
+        margin-right: 30px;
+        color: white;
+        background-color: forestgreen;
+        border-radius: 30px;
+        font-size: large;
+        font-style: oblique;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+        {% for msg in get_flashed_messages() %}
+        <p class="user_sq_flash" >{{ msg }}</p>
+        {% endfor %}
+<div class="admin_sq">
+    {% include "admin/menu.html" %}
+    <div class="blank"></div>
+    <div id="movie_add_sq"><div id="movie_add_head"><h2>添加电影</h2></div>
+       <form method="POST" id="form-data-user-change" enctype="multipart/form-data">
+            <div class="col-md-12" id="error_name"></div>
+            <div class="personal_name_show">
+                <h4>视频标题</h4>
+                {{ form.title }}
+                <span></span>
+                {% for err in form.title.errors %}
+                <span class="personal_sq_control_text">{{ err }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="col-md-12" id="error_phone"></div>
+            <div class="personal_tag_show">
+                <h4>视频标签</h4>
+                {{ form.tag }}
+                <span></span>
+                {% for err in form.tag.errors %}
+                <span class="personal_sq_control_text">{{ err }}</span>
+                {% endfor %}
+            </div>
+
+           <div class="col-md-12" id="error_face"></div>
+            <div class="personal_face_show">
+                <h4>封面</h4>
+                <em style="width: 60px;display: block;position: absolute;">
+                    {{ form.logo }}
+                </em>
+                {% for err in form.logo.errors %}
+                <span class="personal_sq_control_text">{{ err }}</span>
+                {% endfor %}
+                <br><br><br><br>
+            </div>
+            <div class="personal_file_show">
+                <h4>视频</h4>
+                {{ form.url }}
+                <span></span>
+                {% for err in form.url.errors %}
+                <span class="personal_sq_control_text">{{ err }}</span>
+                {% endfor %}
+            </div>
+           <br><br><br><br>
+            <div class="form-control-personal">
+                {{ form.csrf_token }}
+                {{ form.submit }}
+            </div>
+           <br><br><br>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

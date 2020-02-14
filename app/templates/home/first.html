@@ -1,0 +1,73 @@
+{% extends "home/home.html" %}
+{% block css %}
+<style>
+    .box-footer-clearfix > ul {
+        display: flex;
+        justify-content: right;
+        text-align: right;
+        list-style: none;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .box-footer-clearfix > ul > li > a {
+        text-decoration: none;
+        color: indigo;
+    }
+
+    .menu_curlink_admin {
+        display: flex;
+        text-decoration: none;
+        color: black;
+
+    }
+
+    #index_sq {
+        display: flex;
+        height: 80%;
+        width: 70%;
+        margin: 0 15% 0 15%;
+        background: white;
+    }
+
+    #movie_tag span {
+        display: flex;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        justify-content: center;
+        text-align: center;
+        width: 200px;
+        font-weight: bold;
+        font-size: larger;
+        background-color: #c4e0e4;
+    }
+    #movie_index_page{
+        background: white;
+        width: 70%;
+        margin-left: 15%;
+    }
+    #first_page{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+    #first_page_link{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        color: red;
+        font-weight: bold;
+        font-size: 30px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+    <h1 id="first_page">这里是首页</h1>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <a id="first_page_link" href="{{ url_for('home.index',page=1) }}"><span>视频真正的首页</span></a>
+
+{% endblock %}
+
+
